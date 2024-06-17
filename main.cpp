@@ -7,17 +7,18 @@ using namespace std;
 int main()
 {
     int cash {0};
-    char option_input;
+    int option_input;
+    const char prefix {'$'};
     
     string welcome_message {"Welcome to the hotel. Please enter an option to get started!"};
     
     vector <string> options
     {
       "===--- OPTIONS ---===",
-      "A) Hotel shop.",
-      "B) List down your order.",
-      "C) Top-up your cash.",
-      "Q) Quit the menu.",
+      "Hotel shop.",
+      "List down your order.",
+      "Top-up your cash.",
+      "Quit the menu.",
     };
     
     vector <string> order_list {};
@@ -26,155 +27,51 @@ int main()
     {
         cout << welcome_message << endl << endl;
         
-        for (auto ops: options)
-            cout << ops << endl;
-        cout << endl;
-        if (cash == 0)
-            cout << "You have $" << cash << "." << " Please top up more.";
-        else
-            cout << "You have $" << cash << ".";
-        cout << endl;
+        for (int i {0}; i < static_cast<signed int> (options.size()); i++)
+            if (i == 0)
+                cout << options.at(i) << endl;
+            else
+                cout << i << ") " << options.at(i) << endl;
+
+        cout << "Your cash: " << prefix << cash << endl;
         cout << endl << "Enter an option: ";
         cin >> option_input;
-        
-        int item_amount {0};
-        int result {0};
         
         // Handling option input
         switch(option_input)
         {
-            case 'A':
-            case 'a':
+            case 1:
             {
+                int result {0}, item_quantity {0};
+                
+                vector <int> item_prices 
+                {
+                  10, // Apple
+                  20, // Orange
+                  30, // Mango
+                };
+                
                 vector <string> shop_options
                 {
-                  "A) Apple / $10", "B) Orange / $20", "C) Mango / $30",
+                  "Apple",
+                  "Orange", 
+                  "Mango",
                 };
                 
                 cout << endl << "===--- Welcome to the hotel shop ---===" << endl;
-                for (auto so: shop_options)
-                    cout << so << endl;
-                    
-                char input;
+                
+                for (int i {0}; i < static_cast<signed int> (item_prices.size()); i++)
+                    cout << i << ") " << shop_options.at(i) << " / " << prefix << item_prices.at(i) << endl;
                 
                 cout << "Enter an option: ";
-                cin >> input;
+                cin >> option_input;
+            
+                result = item_prices.at(option_input);
                 
-                switch(input)
-                {
-                    case 'A':
-                    case 'a':
-                    {
-                        int apple {10};
-                        
-                        cout << "How many do you need: ";
-                        cin >> item_amount;
-                        
-                        string final_order {};
-                        final_order = "x" + to_string(item_amount) + " Apple(s)";
-                        
-                        result += item_amount * apple;
-                        
-                        cout << "Your total will be $" << result; 
-                        
-                        cout << endl << "Confirm : Y : N? ";
-                        cin >> input;
-                        
-                        if (input == 'Y' || input == 'y')
-                        {
-                            bool is_cash {false};
-                            is_cash = ((cash >= result ? true : false));
-                        
-                            switch (is_cash)
-                            {
-                                case true:
-                                    cash -= result;
-                                    order_list.push_back(final_order);
-                                    cout << endl << "Purchase completed." << endl;
-                                    break;
-                                case false:
-                                    cout << endl << "Purchase failed. Not enough funds." << endl;
-                                    break;
-                            }
-                        }
-                    } break;
-                    case 'B':
-                    case 'b':
-                    {
-                        int oranges {20};
-                        
-                        cout << "How many do you need: ";
-                        cin >> item_amount;
-                        
-                        string final_order {};
-                        final_order = "x" + to_string(item_amount) + " Oranges(s)";
-                        
-                        result += item_amount * oranges;
-                        
-                        cout << "Your total will be $" << result; 
-                        
-                        cout << endl << "Confirm : Y : N? ";
-                        cin >> input;
-                        
-                        if (input == 'Y' || input == 'y')
-                        {
-                            bool is_cash {false};
-                            is_cash = ((cash >= result ? true : false));
-                        
-                            switch (is_cash)
-                            {
-                                case true:
-                                    cash -= result;
-                                    order_list.push_back(final_order);
-                                    cout << endl << "Purchase completed." << endl;
-                                    break;
-                                case false:
-                                    cout << endl << "Purchase failed. Not enough funds." << endl;
-                                    break;
-                            }
-                        }
-                    } break;
-                    case 'C':
-                    case 'c':
-                    {
-                        int mango {30};
-                        
-                        cout << "How many do you need: ";
-                        cin >> item_amount;
-                        
-                        string final_order {};
-                        final_order = "x" + to_string(item_amount) + " Mango(s)";
-                        
-                        result += item_amount * mango;
-                        
-                        cout << "Your total will be $" << result; 
-                        
-                        cout << endl << "Confirm : Y : N? ";
-                        cin >> input;
-                        
-                        if (input == 'Y' || input == 'y')
-                        {
-                            bool is_cash {false};
-                            is_cash = ((cash >= result ? true : false));
-                        
-                            switch (is_cash)
-                            {
-                                case true:
-                                    cash -= result;
-                                    order_list.push_back(final_order);
-                                    cout << endl << "Purchase completed." << endl;
-                                    break;
-                                case false:
-                                    cout << endl << "Purchase failed. Not enough funds." << endl;
-                                    break;
-                            }
-                        }
-                    } break;
-                }
-                
-            } break;
-            case 'B':
-            case 'b':
+                cout << "How many " << shop_options.at(option_input) << "s do you want to buy?";
+                } 
+                break;
+            case 2:
                 if (order_list.empty()) 
                 {
                     cout << "You have not ordered anything yet." << endl;
@@ -186,25 +83,23 @@ int main()
                     }
                 }
                 break;
-            case 'C':
-            case 'c':
+            case 3:
             {
-                int input {0};
-                
                 cout << "How much cash do you want to top up? ";
-                cin >> input;
+                cin >> option_input;
                 
-                if (input <= 0)
-                    cout << "Can't top up the amount!" << endl;
+                if (option_input <= 0)
+                    cout << "Can't top up less then " << prefix << 0 << " dollars." << endl;
                 else
-                    cash += input;
-            } break;
-            case 'Q':
-            case 'q':
-                cout << "Qutting the menu.";
+                    cash += option_input;
+                    cout << "Updated cash: " << prefix << cash << endl;
+            } 
+            break;
+            default:
+                option_input = 4;
                 break;
         }
-    } while (option_input != 'Q' && option_input != 'q');
+    } while (option_input != 4 && option_input != 4);
     
     return 0;
 }
