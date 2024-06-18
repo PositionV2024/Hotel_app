@@ -49,6 +49,7 @@ int main()
                   20, // Orange
                   30, // Mango
                   40, // Banana
+                  //ADD AS MUCH ITEM PRICE AS YOU WANT HERE
                 };
                 
                 vector <string> shop_options
@@ -57,6 +58,7 @@ int main()
                   "Orange", 
                   "Mango",
                   "Banana",
+                  // ADD AS MUCH ITEM AS YOU WANT HER
                 };
                 
                 cout << endl << "===--- Welcome to the hotel shop ---===" << endl;
