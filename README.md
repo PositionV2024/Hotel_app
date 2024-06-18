@@ -6,5 +6,5 @@ This is meant to be a hobby project. When this application is executed in the ID
 #### GIF
 ![Watch the video](https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/ezgif.com-effects.gif)
 #### Video
-https://www.youtube.com/watch?v=LZMEnV78luY
+[![Watch the video](https://www.youtube.com/watch?v=LZMEnV78luY)
 #### Made by Clarence
