@@ -10,17 +10,17 @@ struct Level {
     
     vector <int> level_exp
     {
-        0, // Level 0 - 0 exp
-        0, // Level 1 - 0 exp
-        0, // Level 2 - 0 exp
-        0, // Level 3 - 0 exp
-        0, // Level 4 - 0 exp
-        0, // Level 5 - 0 exp
-        0, // Level 6 - 0 exp
-        0, // Level 7 - 0 exp
-        0, // Level 8 - 0 exp
-        0, // Level 9 - 0 exp
-        0, // Level 10 - NO LIMIT EXP
+        200, // Level 0
+        400, // Level 1
+        650, // Level 2
+        750, // Level 3
+        2000, // Level 4
+        3400, // Level 5
+        4600, // Level 6
+        5600, // Level 7
+        5900, // Level 8
+        6000, // Level 9
+        70000000, // Level 10
     };
 };
 
@@ -52,20 +52,16 @@ int main()
     vector <string> order_list {};
     do
     {
-        if (level.level < level.max_level) 
+         if (level.level < level.max_level) 
         {
             if (level.level >= level.level_exp.at(level.level))
             {
                 level.total_exp -= level.level_exp.at(level.level);
                 level.level += 1;
-                cout << "You've leveled up" << endl;
-            } else {
-                cout << "You do not have enough EXP to level up." << endl;
+                cout << ">> You advanced to level " << level.level << endl;
             }
-        } else {
-            cout << endl << "You are at the final level." << endl;
         }
-    
+        
         cout << hotel.welcome_message << endl << endl;
         
         for (int i {0}; i < static_cast<signed int> (hotel.options.size()); i++)
@@ -74,14 +70,10 @@ int main()
             else
                 cout << i << ") " << hotel.options.at(i) << endl;
 
+        cout << "===--- Stats ---===" << endl;
         cout << "Your cash: " << prefix << cash << endl;
-        
-        if (level.level < level.max_level)
-            cout << "Here is your current level: " << level.level << ". Next level: " << level.level + 1 << "." << " Required exp: " << level.level_exp.at(level.level);
-        else
-            cout << "Here is your current level: " << level.level << ". You are at the last level." ;
-        cout << " Remaining EXP: " << static_cast<double> (level.total_exp);
-        cout << endl << "Enter an option: ";
+        cout << ">> Your level: " << level.level << "/" << level.level_exp.size() - 1 << " Remaining EXP: " << static_cast<double> (level.total_exp) << endl;
+        cout  << "Enter an option: ";
         cin >> option_input;
         
         switch(option_input)
@@ -90,14 +82,20 @@ int main()
             {
                 int result {0}, item_quantity {0}, item_recorded {0};
                 
-                vector <int> item_prices 
+                vector <int> item_prices
                 {
-                    50,
+                    // ADD UNLIMITED ITEM PRICES HERE
+                    3,
+                    5,
+                    7,
                 };
                 
                 vector <string> shop_options
                 {
+                    // ADD UNLIMITED ITEMS HERE
                     "Apple",
+                    "Pear",
+                    "Mango",
                 };
                 
                 cout << endl << "===--- Welcome to the hotel shop ---===" << endl;
@@ -111,7 +109,8 @@ int main()
                     break;
                 }
                 
-                cout << "Enter an option: ";
+                cout << "Enter an option: (You need to enter a number based on the item you want to buy): ";
+                
                 cin >> option_input;
                 
                 result = item_prices.at(option_input);
@@ -122,13 +121,12 @@ int main()
                 item_quantity = option_input;
                     
                 result *= item_quantity;
-                cout << "===--- Final confirmation ---===" << endl;
                             
-                if (item_quantity > 1) {
+                if (item_quantity >= 1) {
                     cout << "You are buying " << item_quantity << " " << shop_options.at(item_recorded) << "s." << endl;
-                }  else {
-                    cout << "You are buying " << item_quantity << " " << shop_options.at(item_recorded) << "." << endl;
-                }
+                } else { break; }
+                
+                    cout << "===--- Final confirmation ---===" << endl;
                     cout << "Your total will be: " << prefix << result;
                         
                     if (cash >= result)
@@ -143,10 +141,10 @@ int main()
                         order_list.push_back(final_order);
                                 
                         level.total_exp += 100;
-                        cout << "You have just recieved 100 exp for this transaction" << endl;
-                    }  
+                        cout << "You have just recieved 100 exp for this transaction." << endl;
+                    }
                     else
-                        cout << endl << "Could not complete the transaction." << endl;
+                        cout << endl << "Could not complete the transaction. Please top up more cash." << endl;
                     } break;
             case 2:
                 if (order_list.empty())
@@ -174,25 +172,25 @@ int main()
             } break;
             case 4:
             {
-                // check level
                 cout << "===--- Levels ---===" << endl;
                 
-                    for (auto i {1}; i <= level.max_level; i++)
-                    {
-                        if (level.level > i)
-                            cout << i << ")" << " Level: " << i << " (completed)." << endl;
-                        else if (level.level == i && level.level != level.max_level)
-                            cout << i << ")" << " Level: " << i << " (You are here)." << endl;
-                        else if (level.level == level.max_level)
-                            cout << i << ")" << " Level: " << i << " (You are at the max level)." << endl;
-                        else
-                            cout << i << ")" << " Level: " << i << " (requires) " << level.level_exp.at(i) << "." << endl;
-                    }
+                for (auto i {1}; i <= level.max_level; i++)
+                {
+                    if (level.level > i)
+                        cout << i << ")" << " Level: " << i << " (completed)." << endl;
+                    else if (level.level == i && level.level != level.max_level)
+                        cout << i << ")" << " Level: " << i << " (You are here)." << endl;
+                    else if (level.level == level.max_level)
+                        cout << i << ")" << " Level: " << i << " (You are at the max level)." << endl;
+                    else
+                        cout << i << ")" << " Level: " << i << " (requires) / " << level.level_exp.at(i) << "." << endl;
+                }
+                cout << endl << level.level_exp.at(level.level) << " exp to reach to the next level." << endl;
             }
                 break;
             case 5:
             {
-                cout << "You've quit the program" << endl;
+                cout << "You've quit the program." << endl;
                 is_looping = false;
                 break;
             }
