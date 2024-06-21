@@ -6,5 +6,5 @@ When this application is executed in the IDE (Integrated Development Environment
 #### GIF
 ![Watch the video](https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/ezgif.com-effects.gif)
 #### Video
-[!Full video](https://youtu.be/_vXoWpodXsI) (1:20)
+[![Full video](https://youtu.be/_vXoWpodXsI)] (1:20)
 #### Made by Clarence
