@@ -4,23 +4,23 @@
 using namespace std;
 
 struct Level {
-    int total_exp {0};
+    int total_exp {5};
     int level {0};
     const int max_level {10};
-    
+    int base_exp {150};
     vector <int> level_exp
     {
-        200, // Level 0
-        400, // Level 1
-        650, // Level 2
-        750, // Level 3
-        2000, // Level 4
-        3400, // Level 5
-        4600, // Level 6
-        5600, // Level 7
-        5900, // Level 8
-        6000, // Level 9
-        70000000, // Level 10
+        5, // Level 0 - 0 exp
+        6, // Level 1 - 0 exp
+        10, // Level 2 - 0 exp
+        20, // Level 3 - 0 exp
+        30, // Level 4 - 0 exp
+        40, // Level 5 - 0 exp
+        50, // Level 6 - 0 exp
+        80, // Level 7 - 0 exp
+        150, // Level 8 - 0 exp
+        155, // Level 9 - 0 exp
+        158, // Level 10 - NO LIMIT EXP
     };
 };
 
@@ -50,11 +50,12 @@ int main()
     const char prefix {'$'};
     
     vector <string> order_list {};
+    
     do
     {
          if (level.level < level.max_level) 
         {
-            if (level.level >= level.level_exp.at(level.level))
+            if (level.total_exp >= level.level_exp.at(level.level))
             {
                 level.total_exp -= level.level_exp.at(level.level);
                 level.level += 1;
@@ -113,7 +114,12 @@ int main()
                 
                 cin >> option_input;
                 
-                result = item_prices.at(option_input);
+                // Fixed an error here
+                
+                if (option_input >= 0 && option_input < static_cast<signed int> (item_prices.size()))
+                {
+                    result = item_prices.at(option_input);
+                    
                 item_recorded = option_input;
                     
                 cout << "How many " << shop_options.at(option_input) << "s do you want to buy? ";
@@ -140,16 +146,19 @@ int main()
                             
                         order_list.push_back(final_order);
                                 
-                        level.total_exp += 100;
-                        cout << "You have just recieved 100 exp for this transaction." << endl;
+                        level.total_exp += level.base_exp;
+                        cout << "You have just recieved " << level.base_exp << " exp for this transaction." << endl;
                     }
                     else
-                        cout << endl << "Could not complete the transaction. Please top up more cash." << endl;
-                    } break;
+                        cout << endl << "Error: Could not complete the transaction. Please top up more cash." << endl;
+                    } else {
+                        cout << "Error: There is no such option number."<<endl;
+                    }
+            } break;
             case 2:
                 if (order_list.empty())
                 {
-                    cout << "You have not ordered anything yet." << endl;
+                    cout << "Error: You have not ordered anything yet." << endl;
                 } else {
                     cout << endl << "===--- Order history ---===" << endl;
                     for (int i {0}; i < static_cast<signed int> (order_list.size()); i++)
@@ -185,7 +194,7 @@ int main()
                     else
                         cout << i << ")" << " Level: " << i << " (requires) / " << level.level_exp.at(i) << "." << endl;
                 }
-                cout << endl << level.level_exp.at(level.level) << " exp to reach to the next level." << endl;
+                cout << endl << level.level_exp.at(level.level) - level.total_exp << " exp to reach to the next level." << endl;
             }
                 break;
             case 5:
