@@ -34,7 +34,7 @@ struct Hotel {
       "Order history.",
       "Top-up your cash.",
       "Check level and exp.",
-      "Check basket",
+      "Check your shopping cart.",
       "Quit the menu.",
     };  
 };
@@ -50,8 +50,7 @@ int main()
     
     const char prefix {'$'};
     
-    vector <string> order_list {};
-    vector <string> shopping_chart {};
+    vector <string> order_list {}, shopping_cart {};
     
     do
     {
@@ -134,15 +133,20 @@ int main()
                 
                 if (option_input == 1)
                 {
-                    string shopping_chart_format {""};
-                    
-                    shopping_chart_format = "x" + to_string(item_quantity) + shop_options.at(item_recorded) + " / " + to_string(result);
-        
-                    cout << shopping_chart_format;
-                    
-                    shopping_chart.push_back(shopping_chart_format);
+                    if (item_quantity >= 1) 
+                    {
+                        string final_order {""};
                         
-                    cout << "Successfully added " << shop_options.at(item_recorded) << "to shopping chart" << endl;
+                        final_order = "x" + to_string(item_quantity) + "" + shop_options.at(item_recorded) + " / " + prefix + to_string(result);
+                        
+                        shopping_cart.push_back(final_order);
+                            
+                        cout << "Successfully added x" << item_quantity << " " << shop_options.at(item_recorded) << " to shopping chart." << endl;
+                        
+                        hotel.options.at(5) = "Check shopping cart (" + to_string(shopping_cart.size()) + ")";
+                    } else {
+                        cout << "Error: Couldn't add to basket." << endl;
+                    }
                 }
                 else
                 {
@@ -160,7 +164,7 @@ int main()
                                 
                         string final_order {""};
                                 
-                        final_order = "x" + to_string(item_quantity) + " " + shop_options.at(item_recorded) + " for " + prefix + to_string(result);
+                        final_order = "x" + to_string(item_quantity) + " " + shop_options.at(item_recorded) +  " / "  + prefix + to_string(result);
                             
                         order_list.push_back(final_order);
                                 
@@ -217,13 +221,15 @@ int main()
                 break;
             case 5:
             {
-                cout << "===--- Basket ---===" << endl;
                 
-                if (shopping_chart.empty())
+                if (shopping_cart.empty())
                     cout << "Error: You do not have anything in your basket." << endl;
                 else {
-                    for (int i {0}; i < static_cast<signed int> (shopping_chart.size()); i++)
-                        cout << i << ") " << shopping_chart.at(i);
+                    cout << "===--- Shopping cart ---===" << endl;
+                    for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                    {
+                        cout << i + 1 << ") " << shopping_cart.at(i) << endl;
+                    }
                 }
                 break;
             }
