@@ -50,7 +50,8 @@ int main()
     
     const char prefix {'$'};
     
-    vector <string> order_list {}, shopping_cart {};
+    vector <string> order_list {}, shopping_cart {}, item_names {};
+    vector <int> item_prices_ {}, items {};
     
     do
     {
@@ -137,10 +138,14 @@ int main()
                     {
                         string final_order {""};
                         
-                        final_order = "x" + to_string(item_quantity) + "" + shop_options.at(item_recorded) + " / " + prefix + to_string(result);
+                        final_order = "x" + to_string(item_quantity) + " " + shop_options.at(item_recorded) + "(s)" + " / " + prefix + to_string(result);
                         
                         shopping_cart.push_back(final_order);
-                            
+                        
+                        item_names.push_back(shop_options.at(item_recorded));
+                        items.push_back(item_quantity);
+                        item_prices_.push_back(result);
+                        
                         cout << "Successfully added x" << item_quantity << " " << shop_options.at(item_recorded) << " to shopping chart." << endl;
                         
                         hotel.options.at(5) = "Check shopping cart (" + to_string(shopping_cart.size()) + ")";
@@ -221,6 +226,10 @@ int main()
                 break;
             case 5:
             {
+                int total_price {0};
+                vector <string> final_order {};
+                vector <int> number {}, item_price {};
+                vector <string> item_name {};
                 
                 if (shopping_cart.empty())
                     cout << "Error: You do not have anything in your basket." << endl;
@@ -229,6 +238,45 @@ int main()
                     for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
                     {
                         cout << i + 1 << ") " << shopping_cart.at(i) << endl;
+                        total_price += item_prices_.at(i);
+                    }
+                    
+                    cout << endl << "Your total price will be: " << prefix << total_price << endl;
+                    cout << "Do you want to check out all of these items? Y / N (1 = Y and 0 = N):";
+                    cin >> option_input;
+                    
+                    switch(option_input)
+                    {
+                        case 1:
+                        {
+                            if (cash >= total_price)
+                            {
+                                for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                {
+                                    number.push_back(items.at(i));
+                                    item_name.push_back(item_names.at(i));
+                                    item_price.push_back(item_prices_.at(i));
+                                    final_order.push_back("x" + to_string(number.at(i)) + " " + item_name.at(i) + "(s)" + " / " + prefix + to_string(item_price.at(i)));
+                                }
+                                for (auto i: final_order) {
+                                    order_list.push_back(i);
+                                cout << i;}
+                                    
+                                cash -= total_price;
+                                shopping_cart.clear();
+                                items.clear();
+                                item_names.clear();
+                                item_prices_.clear();
+                                hotel.options.at(5) = "Check your shopping chart";
+                                
+                                cout << endl << "Transaction complete." << endl;
+                            } else {
+                                cout << endl << "Error: You do not have enough money to purchase these items." << endl;
+                            }
+                        }
+                            break;
+                        case 0:
+                            break;
                     }
                 }
                 break;
