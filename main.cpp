@@ -31,9 +31,10 @@ struct Hotel {
     {
       "",
       "Hotel shop.",
-      "List down your order.",
+      "Order history.",
       "Top-up your cash.",
       "Check level and exp.",
+      "Check basket",
       "Quit the menu.",
     };  
 };
@@ -50,6 +51,7 @@ int main()
     const char prefix {'$'};
     
     vector <string> order_list {};
+    vector <string> shopping_chart {};
     
     do
     {
@@ -125,10 +127,26 @@ int main()
                 cout << "How many " << shop_options.at(option_input) << "s do you want to buy? ";
                 cin >> option_input;
                 item_quantity = option_input;
-                    
                 result *= item_quantity;
-                            
-                if (item_quantity >= 1) {
+                
+                cout << "Do you want to put this into a basket and continue shopping? Y / N (1 = Y and 0 = N): ";
+                cin >> option_input;
+                
+                if (option_input == 1)
+                {
+                    string shopping_chart_format {""};
+                    
+                    shopping_chart_format = "x" + to_string(item_quantity) + shop_options.at(item_recorded) + " / " + to_string(result);
+        
+                    cout << shopping_chart_format;
+                    
+                    shopping_chart.push_back(shopping_chart_format);
+                        
+                    cout << "Successfully added " << shop_options.at(item_recorded) << "to shopping chart" << endl;
+                }
+                else
+                {
+                    if (item_quantity >= 1) {
                     cout << "You are buying " << item_quantity << " " << shop_options.at(item_recorded) << "s." << endl;
                 } else { break; }
                 
@@ -149,12 +167,12 @@ int main()
                         level.total_exp += level.base_exp;
                         cout << "You have just recieved " << level.base_exp << " exp for this transaction." << endl;
                     }
-                    else
+                    else {
                         cout << endl << "Error: Could not complete the transaction. Please top up more cash." << endl;
-                    } else {
-                        cout << "Error: There is no such option number."<<endl;
-                    }
-            } break;
+                }
+            } 
+        }
+    } break;
             case 2:
                 if (order_list.empty())
                 {
@@ -199,10 +217,21 @@ int main()
                 break;
             case 5:
             {
+                cout << "===--- Basket ---===" << endl;
+                
+                if (shopping_chart.empty())
+                    cout << "Error: You do not have anything in your basket." << endl;
+                else {
+                    for (int i {0}; i < static_cast<signed int> (shopping_chart.size()); i++)
+                        cout << i << ") " << shopping_chart.at(i);
+                }
+                break;
+            }
+            case 6:
                 cout << "You've quit the program." << endl;
                 is_looping = false;
                 break;
-            }
+                break;
             default:
                 cout << "Unknown command." << endl;
                 break;
