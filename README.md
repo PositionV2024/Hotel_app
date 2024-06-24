@@ -7,7 +7,7 @@
 </details>
 
 <details>
-  <summary>Shopping cartsummary>
+  <summary>Shopping cart</summary>
     <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20094719.png alt="Shopping cart" width="900px" height="400">
 </details>
 
