@@ -4,23 +4,33 @@
 using namespace std;
 
 struct Level {
-    int total_exp {5};
-    int level {0};
-    const int max_level {10};
-    int base_exp {150};
+    int total_exp {0};
+    int level {1};
+    const int max_level {20};
+    int base_exp {100};
+    
     vector <int> level_exp
     {
-        5, // Level 0 - 0 exp
-        6, // Level 1 - 0 exp
-        10, // Level 2 - 0 exp
-        20, // Level 3 - 0 exp
-        30, // Level 4 - 0 exp
-        40, // Level 5 - 0 exp
-        50, // Level 6 - 0 exp
-        80, // Level 7 - 0 exp
-        150, // Level 8 - 0 exp
-        155, // Level 9 - 0 exp
-        158, // Level 10 - NO LIMIT EXP
+        5, // Level 0
+        6, // Level 1
+        10, // Level 2
+        20, // Level 3
+        30, // Level 4
+        40, // Level 5
+        50, // Level 6
+        80, // Level 7
+        150, // Level 8
+        155, // Level 9
+        158, // Level 10
+        158, // Level 11
+        158, // Level 12
+        158, // Level 13
+        158, // Level 14
+        158, // Level 15
+        158, // Level 16
+        158, // Level 18
+        158, // Level 19
+        158, // Level 20
     };
 };
 
@@ -69,7 +79,7 @@ int main()
         
         for (int i {0}; i < static_cast<signed int> (hotel.options.size()); i++)
             if (i == 0)
-                cout << "===--- OPTIONS ---===" << endl;
+                cout << "===--- MENU ---===" << endl;
             else
                 cout << i << ") " << hotel.options.at(i) << endl;
 
@@ -210,7 +220,7 @@ int main()
             {
                 cout << "===--- Levels ---===" << endl;
                 
-                for (auto i {1}; i <= level.max_level; i++)
+                for (auto i {1}; i < static_cast<signed int> (level.level_exp.size()); i++)
                 {
                     if (level.level > i)
                         cout << i << ")" << " Level: " << i << " (completed)." << endl;
@@ -218,8 +228,13 @@ int main()
                         cout << i << ")" << " Level: " << i << " (You are here)." << endl;
                     else if (level.level == level.max_level)
                         cout << i << ")" << " Level: " << i << " (You are at the max level)." << endl;
+                 
+                    else if (i >= 10)
+                        {
+                            cout << "Advanced)" << " Level: " << i << " (requires) / " << level.level_exp.at(i) << "." << endl;
+                        }
                     else
-                        cout << i << ")" << " Level: " << i << " (requires) / " << level.level_exp.at(i) << "." << endl;
+                        cout << "Level: " << i << " (requires) / " << level.level_exp.at(i) << "." << endl;
                 }
                 cout << endl << level.level_exp.at(level.level) - level.total_exp << " exp to reach to the next level." << endl;
             }
@@ -228,6 +243,11 @@ int main()
             {
                 int total_price {0};
                 vector <string> final_order {};
+                vector <string> ops
+                {
+                  "0) Cancel",
+                  "1) Check out current items",
+                };
                 
                 if (shopping_cart.empty())
                     cout << "Error: You do not have anything in your basket." << endl;
@@ -240,7 +260,10 @@ int main()
                     }
                     
                     cout << endl << "Your total price will be: " << prefix << total_price << endl;
-                    cout << "Do you want to check out all of these items? Y / N (1 = Y and 0 = N):";
+                    
+                    for (auto i: ops)
+                        cout << ops;
+                    
                     cin >> option_input;
                     
                     switch(option_input)
@@ -262,8 +285,6 @@ int main()
     
                                 shopping_cart.clear();
                                 hotel.options.at(5) = "Check your shopping chart";
-                                
-                                
                                 cout << endl << "Transaction complete." << endl;
                             } else {
                                 cout << endl << "Error: You do not have enough money to purchase these items." << endl;
