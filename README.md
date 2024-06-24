@@ -1,10 +1,8 @@
 # New updates
 <details>
   <summary>Remove an item from the shopping cart</summary>
-  Before
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-25%20031555.png alt="Shopping cart" width="900" height="400">
-  After
-  <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-25%20031555.png alt="Shopping cart" width="900" height="400">
+  <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-25%20031610.png alt="Shopping cart" width="900" height="400">
 </details>
 
 <details>
