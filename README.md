@@ -2,7 +2,7 @@
 
 <details>
   <summary>Level</summary>
-  <summary>Shopping cart</summary>
+  s
 </details>
 
 ## Level
