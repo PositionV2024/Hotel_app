@@ -1,4 +1,8 @@
 # New updates
+<details>
+  <summary>Remove an item from the shopping cart</summary>
+  <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-25%20031555.png alt="Shopping cart" width="400" height="400">
+</details>
 
 <details>
   <summary>Level</summary>
