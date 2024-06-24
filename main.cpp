@@ -5,7 +5,7 @@ using namespace std;
 
 struct Level {
     int total_exp {0};
-    int level {1};
+    int level {4};
     const int max_level {20};
     int base_exp {100};
     
@@ -65,6 +65,7 @@ int main()
     
     do
     {
+        cout << items.size();
          if (level.level < level.max_level) 
         {
             if (level.total_exp >= level.level_exp.at(level.level))
@@ -241,12 +242,13 @@ int main()
                 break;
             case 5:
             {
-                int total_price {0};
-                vector <string> final_order {};
+                int total_price {0}; int givenExp {0};
+                
                 vector <string> ops
                 {
                   "0) Cancel",
                   "1) Check out current items",
+                  "2) Remove an item from the cart",
                 };
                 
                 if (shopping_cart.empty())
@@ -262,7 +264,7 @@ int main()
                     cout << endl << "Your total price will be: " << prefix << total_price << endl;
                     
                     for (auto i: ops)
-                        cout << ops;
+                        cout << i;
                     
                     cin >> option_input;
                     
@@ -276,16 +278,20 @@ int main()
                                 
                                 for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
                                 {
-                                    final_order.push_back("x" + to_string(items.at(i)) + " " + item_names.at(i) + "(s)" + " / " + prefix + to_string(item_prices_.at(i)));
+                                    order_list.push_back("x" + to_string(items.at(i)) + " " + item_names.at(i) + "(s)" + " / " + prefix + to_string(item_prices_.at(i)));
                                 }
                                 
-                                for (int i {0}; i < final_order.size(); i++) {
-                                    order_list.push_back(final_order.at(i));
-                                }
-    
-                                shopping_cart.clear();
+                                givenExp = level.base_exp * shopping_cart.size();
+                                level.total_exp += givenExp;
+                                
+                                cout << "You were given + " << givenExp << " for this transaction." << endl;
+                                
+                                shopping_cart.clear(); items.clear(); item_names.clear(); item_prices_.clear();
+                                
                                 hotel.options.at(5) = "Check your shopping chart";
+                                
                                 cout << endl << "Transaction complete." << endl;
+                
                             } else {
                                 cout << endl << "Error: You do not have enough money to purchase these items." << endl;
                             }
