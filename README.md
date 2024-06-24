@@ -1,7 +1,8 @@
 # New updates
 
 <details>
-  <summary>Data</summary>
+  <summary>Level</summary>
+  <summary>Shopping cart</summary>
 </details>
 
 ## Level
