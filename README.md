@@ -2,16 +2,14 @@
 
 <details>
   <summary>Level</summary>
-  s
+    Each level contains a certain amount of experience needed to level up. In the future, I can add more functionality to it.
+<img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20093236.png alt="Level" width="400px" height="400">
 </details>
 
-## Level
-Each level contains a certain amount of experience needed to level up. In the future, I can add more functionality to it.
-<img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20093236.png alt="Level" width="400px" height="400">
-
-## Shopping cart
-The whole functionality of a cart system is to let the user add multiple items together to check out later instead of purchasing them individually.
-<img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20094719.png alt="Shopping cart" width="900px" height="400">
+<details>
+  <summary>Shopping cartsummary>
+    <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20094719.png alt="Shopping cart" width="900px" height="400">
+</details>
 
 ### Details of the project
 ---
