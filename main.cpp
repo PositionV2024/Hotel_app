@@ -46,26 +46,26 @@ struct Hotel {
       "Check level and exp.",
       "Check your shopping cart.",
       "Quit the menu.",
-    };  
+    }; 
 };
 
 int main()
 {
+    const char prefix {'$'};
+    
     Hotel hotel;
     Level level;
     
     bool is_looping {true};
     
     int cash {0}, option_input {0};
-    
-    const char prefix {'$'};
+
     
     vector <string> order_list {}, shopping_cart {}, item_names {};
     vector <int> item_prices_ {}, items {};
     
     do
     {
-        cout << items.size();
          if (level.level < level.max_level) 
         {
             if (level.total_exp >= level.level_exp.at(level.level))
@@ -95,6 +95,7 @@ int main()
             case 1:
             {
                 int result {0}, item_quantity {0}, item_recorded {0};
+                string final_order {""};
                 
                 vector <int> item_prices
                 {
@@ -127,8 +128,6 @@ int main()
                 
                 cin >> option_input;
                 
-                // Fixed an error here
-                
                 if (option_input >= 0 && option_input < static_cast<signed int> (item_prices.size()))
                 {
                     result = item_prices.at(option_input);
@@ -140,15 +139,13 @@ int main()
                 item_quantity = option_input;
                 result *= item_quantity;
                 
-                cout << "Do you want to put this into a basket and continue shopping? Y / N (1 = Y and 0 = N): ";
+                cout << "Do you want to put this into a basket? Y / N (1 = Y and 0 = N): ";
                 cin >> option_input;
                 
                 if (option_input == 1)
                 {
-                    if (item_quantity >= 1) 
+                    if (item_quantity >= 1)
                     {
-                        string final_order {""};
-                        
                         final_order = "x" + to_string(item_quantity) + " " + shop_options.at(item_recorded) + "(s)" + " / " + prefix + to_string(result);
                         
                         shopping_cart.push_back(final_order);
@@ -166,7 +163,7 @@ int main()
                 }
                 else
                 {
-                    if (item_quantity >= 1) {
+                if (item_quantity >= 1) {
                     cout << "You are buying " << item_quantity << " " << shop_options.at(item_recorded) << "s." << endl;
                 } else { break; }
                 
@@ -177,8 +174,6 @@ int main()
                     {
                         cash -= result;
                         cout << endl << "Transaction complete.";
-                                
-                        string final_order {""};
                                 
                         final_order = "x" + to_string(item_quantity) + " " + shop_options.at(item_recorded) +  " / "  + prefix + to_string(result);
                             
@@ -288,12 +283,43 @@ int main()
                                 
                                 shopping_cart.clear(); items.clear(); item_names.clear(); item_prices_.clear();
                                 
-                                hotel.options.at(5) = "Check your shopping chart";
+                                hotel.options.at(5) = "Check your shopping chart.";
                                 
                                 cout << endl << "Transaction complete." << endl;
                 
                             } else {
                                 cout << endl << "Error: You do not have enough money to purchase these items." << endl;
+                            }
+                        } break;
+                        case 2: 
+                        {
+                            int item_to_remove {0};
+                            
+                            cout << "Do you want to remove this item? Y / N (1 = Y, 0 = N, 1 = Single item and 2 = Multiple item): " << endl;
+                            cin >> option_input;
+                            
+                            switch(option_input)
+                            {
+                                case 1: 
+                                {
+                                    cout << endl << "===--- Shopping cart ---===" << endl;
+                                    for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                    {
+                                        cout << i << ") " << shopping_cart.at(i) << endl;
+                                    }
+                                    
+                                    cout << endl << "Which of these items do you want to remove?" << endl;
+                                    cin >> option_input;
+                                    item_to_remove = option_input;
+
+                                    cout << "Successfully removed: " << shopping_cart.at(item_to_remove) << endl;
+                                    shopping_cart.erase(shopping_cart.begin() + item_to_remove);
+                                    
+                                    if (!shopping_cart.empty()) 
+                                        hotel.options.at(5) = "Check your shopping chart (" + to_string(shopping_cart.size()) + ")";
+                                    else
+                                        hotel.options.at(5) = "Check your shopping chart.";
+                                } break;
                             }
                         } break;
                     }
