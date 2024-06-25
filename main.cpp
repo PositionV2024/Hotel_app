@@ -246,9 +246,10 @@ int main()
                   "2) Remove an item from the cart",
                 };
                 
-                if (shopping_cart.empty())
-                    cout << "Error: You do not have anything in your basket." << endl;
-                else {
+                //if (shopping_cart.empty())
+                    //cout << "Error: You do not have anything in your basket." << endl;
+                //else
+                    {
                     cout << "===--- Shopping cart ---===" << endl;
                     for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
                     {
@@ -257,9 +258,9 @@ int main()
                     }
                     
                     cout << endl << "Your total price will be: " << prefix << total_price << endl;
-                    
+                    cout << endl;
                     for (auto i: ops)
-                        cout << i;
+                        cout << i << endl;
                     
                     cin >> option_input;
                     
@@ -267,61 +268,77 @@ int main()
                     {
                         case 1:
                         {
-                            if (cash >= total_price)
-                            {
-                                cash -= total_price;
-                                
-                                for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                            if (!shopping_cart.empty())
                                 {
-                                    order_list.push_back("x" + to_string(items.at(i)) + " " + item_names.at(i) + "(s)" + " / " + prefix + to_string(item_prices_.at(i)));
+                                    if (cash >= total_price)
+                                {
+                                    cash -= total_price;
+                                
+                                    for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                {
+                                        order_list.push_back("x" + to_string(items.at(i)) + " " + item_names.at(i) + "(s)" + " / " + prefix + to_string(item_prices_.at(i)));
                                 }
                                 
-                                givenExp = level.base_exp * shopping_cart.size();
-                                level.total_exp += givenExp;
-                                
-                                cout << "You were given + " << givenExp << " for this transaction." << endl;
-                                
-                                shopping_cart.clear(); items.clear(); item_names.clear(); item_prices_.clear();
-                                
-                                hotel.options.at(5) = "Check your shopping chart.";
-                                
-                                cout << endl << "Transaction complete." << endl;
-                
+                                    givenExp = level.base_exp * shopping_cart.size();
+                                    level.total_exp += givenExp;
+                                    
+                                    cout << "You were given + " << givenExp << " for this transaction." << endl;
+                                    
+                                    shopping_cart.clear(); items.clear(); item_names.clear(); item_prices_.clear();
+                                    
+                                    hotel.options.at(5) = "Check your shopping chart.";
+                                    
+                                    cout << endl << "Transaction complete." << endl;
+                    
+                                } else {
+                                    cout << "Error: You do not have enough money to purchase these items." << endl;
+                                }
                             } else {
-                                cout << endl << "Error: You do not have enough money to purchase these items." << endl;
+                                cout << endl << "Error: Shopping cart is empty." << endl;
                             }
                         } break;
                         case 2: 
                         {
-                            int item_to_remove {0};
+                            if (!shopping_cart.empty())
+                            {
+                                int item_to_remove {0};
                             
-                            cout << "Do you want to remove this item? Y / N (1 = Y, 0 = N, 1 = Single item and 2 = Multiple item): " << endl;
-                            cin >> option_input;
+                                cout << "Do you want to remove this item? Y / N (1 = Y, 0 = N): " << endl;
+                                cin >> option_input;
                             
                             switch(option_input)
                             {
-                                case 1: 
-                                {
-                                    cout << endl << "===--- Shopping cart ---===" << endl;
-                                    for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                    case 1: 
                                     {
-                                        cout << i << ") " << shopping_cart.at(i) << endl;
-                                    }
-                                    
-                                    cout << endl << "Which of these items do you want to remove?" << endl;
-                                    cin >> option_input;
-                                    item_to_remove = option_input;
+                                        cout << endl << "===--- Shopping cart ---===" << endl;
+                                        for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                        {
+                                            cout << i << ") " << shopping_cart.at(i) << endl;
+                                        }
+                                        
+                                        cout << endl << "Which of these items do you want to remove?" << endl;
+                                        cin >> option_input;
+                                        item_to_remove = option_input;
 
-                                    cout << "Successfully removed: " << shopping_cart.at(item_to_remove) << endl;
-                                    shopping_cart.erase(shopping_cart.begin() + item_to_remove);
-                                    
-                                    if (!shopping_cart.empty()) 
-                                        hotel.options.at(5) = "Check your shopping chart (" + to_string(shopping_cart.size()) + ")";
-                                    else
-                                        hotel.options.at(5) = "Check your shopping chart.";
-                                } break;
+                                        cout << "Successfully removed: " << shopping_cart.at(item_to_remove) << endl;
+                                        shopping_cart.erase(shopping_cart.begin() + item_to_remove);
+                                        item_prices_.erase(item_prices_.begin() + item_to_remove);
+                                        item_names.erase(item_names.begin() + item_to_remove);
+                                        items.erase(items.begin() + item_to_remove);
+                                        
+                                        if (!shopping_cart.empty()) 
+                                            hotel.options.at(5) = "Check your shopping chart (" + to_string(shopping_cart.size()) + ")";
+                                        else
+                                            hotel.options.at(5) = "Check your shopping chart.";
+                                    } break;
+                                }
+                            } else {
+                                cout << endl << "Error: Shopping cart is empty." << endl;
                             }
                         } break;
+                        case 3:
+                            
+                            break;
                     }
                 }
                 break;
