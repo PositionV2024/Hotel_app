@@ -1,5 +1,10 @@
 # Update logs
 <details>
+	<summary>Remove items from the shopping cart</summary>
+	<img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20111408.png alt="Items removed" width="900" height="400">
+	
+</details>
+<details>
   <summary>Remove an item from the shopping cart</summary>
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20054728.png alt="Shopping cart" width="900" height="400">
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20054759.png alt="After removing mango from the shopping cart" width="900" height="400">
