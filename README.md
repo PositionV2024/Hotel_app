@@ -1,30 +1,29 @@
 
-# Update logs
+# Update logs - 26/6/2024
 <details>
-	<summary>Remove items from the shopping cart</summary>
+	<summary>Added support for multiple item removal</summary>
 	<img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20111408.png alt="Items removed" width="900" height="400">
 <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20111500.png alt="Items removed" width="900" height="680">
 	
 </details>
 <details>
-  <summary>Remove an item from the shopping cart</summary>
+  <summary>Added support for a item removal</summary>
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20054728.png alt="Shopping cart" width="900" height="400">
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-26%20054759.png alt="After removing mango from the shopping cart" width="900" height="400">
 </details>
 
 <details>
-  <summary>Level</summary>
-    Each level contains a certain amount of experience needed to level up. In the future, I can add more functionality to it.
+  <summary>Added level</summary>
 <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20093236.png alt="Level" width="400px" height="400">
 </details>
 
 <details>
-  <summary>Shopping cart</summary>
+  <summary>Added shopping cart</summary>
     <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20094719.png alt="Shopping cart" width="900px" height="400">
 </details>
 
 <details>
-  <summary>Order history</summary>
+  <summary>Added order history</summary>
   <img src=https://raw.githubusercontent.com/PositionV2024/Hotel_app/main/Screenshot%202024-06-24%20120915.png alt="Order history" width="900px" height="400">
 </details>
 
