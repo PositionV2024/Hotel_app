@@ -241,19 +241,17 @@ int main()
                 
                 vector <string> ops
                 {
-                  "0) Cancel",
-                  "1) Check out current items",
-                  "2) Remove an item from the cart",
+                  "0) Cancel.",
+                  "1) Check out current items.",
+                  "2) Remove an item from the cart.",
+                  "3) Remove items from the cart."
                 };
                 
-                //if (shopping_cart.empty())
-                    //cout << "Error: You do not have anything in your basket." << endl;
-                //else
                     {
                     cout << "===--- Shopping cart ---===" << endl;
                     for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
                     {
-                        cout << i + 1 << ") " << shopping_cart.at(i) << endl;
+                        cout << i << ") " << shopping_cart.at(i) << endl;
                         total_price += item_prices_.at(i);
                     }
                     
@@ -310,35 +308,64 @@ int main()
                             {
                                     case 1: 
                                     {
-                                        cout << endl << "===--- Shopping cart ---===" << endl;
-                                        for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
-                                        {
-                                            cout << i << ") " << shopping_cart.at(i) << endl;
-                                        }
-                                        
                                         cout << endl << "Which of these items do you want to remove?" << endl;
                                         cin >> option_input;
                                         item_to_remove = option_input;
 
-                                        cout << "Successfully removed: " << shopping_cart.at(item_to_remove) << endl;
-                                        shopping_cart.erase(shopping_cart.begin() + item_to_remove);
-                                        item_prices_.erase(item_prices_.begin() + item_to_remove);
-                                        item_names.erase(item_names.begin() + item_to_remove);
-                                        items.erase(items.begin() + item_to_remove);
+                                        if (item_to_remove >= 0 && item_to_remove < static_cast<signed int>(shopping_cart.size()))
+                                        {
+                                            cout << "Successfully removed: " << shopping_cart.at(item_to_remove) << endl;
                                         
-                                        if (!shopping_cart.empty()) 
-                                            hotel.options.at(5) = "Check your shopping chart (" + to_string(shopping_cart.size()) + ")";
-                                        else
-                                            hotel.options.at(5) = "Check your shopping chart.";
-                                    } break;
-                                }
+                                            shopping_cart.erase(shopping_cart.begin() + item_to_remove); item_prices_.erase(item_prices_.begin() + item_to_remove); item_names.erase(item_names.begin() + item_to_remove); items.erase(items.begin() + item_to_remove);
+                                        
+                                            if (!shopping_cart.empty()) 
+                                                hotel.options.at(5) = "Check your shopping chart (" + to_string(shopping_cart.size()) + ")";
+                                            else
+                                                hotel.options.at(5) = "Check your shopping chart.";
+                                        } else {
+                                            cout << endl << "Error: No item could be removed" << endl;
+                                        }
+                                } break;
+                            }
                             } else {
                                 cout << endl << "Error: Shopping cart is empty." << endl;
                             }
                         } break;
                         case 3:
+                        {
+                            unsigned int max {1};
                             
-                            break;
+                            if (shopping_cart.size() > max)
+                            {
+                                int items_to_remove = {0};
+                                cout << "How many items do you want to remove: ";
+                                cin >> option_input;
+                                items_to_remove = option_input;
+                                
+                                for (int i {0}; i < items_to_remove; i++)
+                                {
+                                    int item {0};
+                                    cout << endl << "Enter item number: ";
+                                    cin >> item;
+                                    
+                                    if (item >= 0 && item < static_cast<signed int> (shopping_cart.size()))
+                                    {
+                                        cout << "Item removed: " << shopping_cart.at(item);
+                                        shopping_cart.erase(shopping_cart.begin() + item); item_prices_.erase(item_prices_.begin() + item); item_names.erase(item_names.begin() + item); items.erase(items.begin() + item);
+                                 
+                                        cout << endl << "===--- Shopping cart ---===" << endl;
+                                        for (int i {0}; i < static_cast<signed int> (shopping_cart.size()); i++)
+                                            {
+                                            cout << i << ") " << shopping_cart.at(i) << endl;
+                                            }
+                                    } else {
+                                         cout << endl << "Error: That item does not exist." << endl;
+                                    }
+                                }
+                            } else {
+                                cout << endl << "Error: Shopping cart does not contain more then " << max << " item." << endl;
+                            }
+                        } break;
                     }
                 }
                 break;
